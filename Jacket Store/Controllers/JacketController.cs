@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Jacket_Store.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     public class JacketController : ControllerBase
     {
     }

@@ -1,6 +1,9 @@
-﻿namespace Jacket_Store.DAL
+﻿using System.Data.Entity;
+
+namespace Jacket_Store.DAL
 {
-    public class JacketRepository : JacketRepositoryInterface
+    public class JacketRepository : DbContext, JacketRepositoryInterface
     {
+        void IDisposable.Dispose() {}
     }
 }
