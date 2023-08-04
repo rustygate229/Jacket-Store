@@ -7,5 +7,12 @@ namespace Jacket_Store.Controllers
     [Route("[controller]")]
     public class JacketController : ControllerBase
     {
+
+        private readonly ILogger<JacketController> _logger;
+
+        JacketController(ILogger<JacketController> logger)
+        {
+            _logger = logger;
+        }
     }
 }

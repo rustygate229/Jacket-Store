@@ -11,30 +11,30 @@ namespace Jacket_Store.DAL
         //Read Methods ------------------
 
         //Customer Table
-        IEnumerable<Customer> GetCustomers();
-        Customer GetCustomerById(int id);
+        ICollection<Customer> GetCustomers();
+        Customer GetCustomerById(int customerId);
 
         //Order Table
-        IEnumerable<Order> GetOrders();
-        Order GetOrderById(int id);
-        IEnumerable<Order> GetOrdersByCustomerId(int id);
+        ICollection<Order> GetOrders();
+        Order GetOrderById(int orderId);
+        ICollection<Order> GetOrdersByCustomerId(int customerId);
 
         //Product Table
-        IEnumerable<Product> GetProducts();
-        Product GetProductById(int id);
+        ICollection<Product> GetProducts();
+        Product GetProductById(int productId);
         Product GetProuctByWarehouse(int warehouseId);
-        IEnumerable<Product> GetAllProductsAtWarehouse(Warehouse warehouseId);
+        ICollection<Product> GetAllProductsAtWarehouse(Warehouse warehouseId);
 
         //Address Table 
-        IEnumerable<Address> GetAddresses();
+        ICollection<Address> GetAddresses();
         Address GetAddressByCustomerId(int customerId);
-        Address GetAddressById(int id);
+        Address GetAddressById(int addressId);
         Address GetAddressByWarehouseID(int warehouseId);
-        IEnumerable<Address> GetAddressesByStreet(String street);
+        ICollection<Address> GetAddressesByStreet(String street);
 
         //Warehouse Table
-        IEnumerable<Warehouse> GetWarehouses();
-        Warehouse GetWarehouseById(int id);
+        ICollection<Warehouse> GetWarehouses();
+        Warehouse GetWarehouseById(int warehouseId);
 
 
         //Create Methods ----------------------------
@@ -47,9 +47,24 @@ namespace Jacket_Store.DAL
 
 
         //Update Methods -----------------------------
+        
 
 
         //Delete Methods -----------------------------
+
+        //Order Table
+        void DeleteOrdersByCustomer(int customerId);
+        void DeleteAllOrders();
+        void DeleteOrderById(int orderId);
+
+        // Product Table
+        void DeleteAllProducts();
+        void DeleteProductByID(int productId);
+        void DeleteProductInWarehouse(int productId, int warehouseId);
+
+        // Warehouse Table
+        void DeleteWarehouseById(int warehouseid);
+        void DeleteProductsInWarehouse(int warehouseId);
 
     }
 }
