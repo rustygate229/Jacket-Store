@@ -2,7 +2,7 @@
 
 namespace Jacket_Store.DAL
 {
-    public interface JacketRepositoryInterface : IDisposable
+    public interface IJacketRepository : IDisposable
     {
         void IDisposable.Dispose() {}
 

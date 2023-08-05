@@ -6,12 +6,15 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services.AddControllers(); //Add controller to container
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
+builder.Services.AddScoped<IJacketRepository, JacketRepository>(); // Register Repository in Controller
 builder.Services.AddDbContext<JacketContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
-});
+}); // Add dbcontext
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

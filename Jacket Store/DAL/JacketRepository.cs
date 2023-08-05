@@ -3,7 +3,7 @@ using System.Data.Entity;
 
 namespace Jacket_Store.DAL
 {
-    public class JacketRepository : JacketRepositoryInterface, IDisposable
+    public class JacketRepository : IJacketRepository, IDisposable
     {
         private JacketContext _context;
 
