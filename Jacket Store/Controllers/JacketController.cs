@@ -2,6 +2,8 @@
 using Jacket_Store.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Data.Entity.Core.Mapping;
+using System.Net;
 
 namespace Jacket_Store.Controllers
 {
@@ -10,6 +12,7 @@ namespace Jacket_Store.Controllers
     public class JacketController : ControllerBase
     {
 
+        // Dependency Injections
         private readonly ILogger<JacketController> _logger;
         private IJacketRepository _jacketRepository;
 
@@ -19,16 +22,37 @@ namespace Jacket_Store.Controllers
             _jacketRepository = jacketRepository;
         }
 
-        [HttpGet(Name="Test")]
-        public Customer Get()
+        [Route("customers")]
+        [HttpGet]
+        public ICollection<Customer> GetCus()
         {
-            return new Customer
+            return _jacketRepository.GetCustomers();
+        }
+
+        [Route("customers")]
+        [HttpPost]
+        public HttpResponseMessage PostCus(Customer newCustomer)
+        {
+            try
             {
-                CustomerID = 1,
-                FirstName = "Johny",
-                LastName = "Test",
-                Home = new Address()
-            };
-        } 
+                if (newCustomer == null)
+                {
+                    return new HttpResponseMessage(HttpStatusCode.BadRequest);
+                }
+
+                _jacketRepository.InsertCustomer(newCustomer);
+                return new HttpResponseMessage(HttpStatusCode.OK);
+
+
+            } catch (Exception)
+            {
+                return new HttpResponseMessage
+                {
+                    Content = new StringContent("Error creating new customer"),
+                    StatusCode = HttpStatusCode.InternalServerError,
+                };
+            }
+        }
+
     }
 }

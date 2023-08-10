@@ -12,9 +12,18 @@ namespace Jacket_Store.DAL
             _context = context;
         }
 
+        // Gets all customers in JSON format
         public ICollection<Customer> GetCustomers()
         {
-            throw new NotImplementedException();
+            // Uses LINQ query
+            using (var context = _context)
+            {
+                var query = (from cus in context.Customers
+                 orderby cus.CustomerID
+                 select cus).ToList();
+
+                return query;
+            }
         }
 
         public Customer GetCustomerById(int customerId)
@@ -92,9 +101,14 @@ namespace Jacket_Store.DAL
             throw new NotImplementedException();
         }
 
-        public void InsertCustomer()
+        public void InsertCustomer(Customer customer)
         {
-            throw new NotImplementedException();
+            using (var context = _context)
+            {
+                //Create a new customer and save it
+                context.Customers.Add(customer);
+                context.SaveChanges();
+            }
         }
 
         public void InsertOrder(Order order)

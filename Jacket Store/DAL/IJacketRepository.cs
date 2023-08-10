@@ -38,7 +38,7 @@ namespace Jacket_Store.DAL
 
 
         //Create Methods ----------------------------
-        void InsertCustomer();
+        void InsertCustomer(Customer customer);
         void InsertOrder(Order order);
         void InsertProduct(Product product);
         void InsertProductToWarehouse(int warehouseID, Product product);
