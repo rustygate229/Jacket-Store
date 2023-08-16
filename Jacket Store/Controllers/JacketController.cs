@@ -31,27 +31,51 @@ namespace Jacket_Store.Controllers
 
         [Route("customers")]
         [HttpPost]
-        public HttpResponseMessage PostCus(Customer newCustomer)
+        public IActionResult PostCus(Customer newCustomer)
         {
             try
             {
                 if (newCustomer == null)
                 {
-                    return new HttpResponseMessage(HttpStatusCode.BadRequest);
+                    return StatusCode(400);
                 }
 
                 _jacketRepository.InsertCustomer(newCustomer);
-                return new HttpResponseMessage(HttpStatusCode.OK);
-
+                return StatusCode(200);
 
             } catch (Exception)
             {
-                return new HttpResponseMessage
-                {
-                    Content = new StringContent("Error creating new customer"),
-                    StatusCode = HttpStatusCode.InternalServerError,
-                };
+                return StatusCode(500);
             }
+        }
+
+        [Route("orders")]
+        [HttpGet]
+        public ICollection<Order> GetOrders()
+        {
+            return _jacketRepository.GetOrders();
+        }
+
+        [Route("products")]
+        [HttpGet]
+        public ICollection<Product> GetProducts()
+        {
+            return _jacketRepository.GetProducts();
+        }
+
+        [Route("addresses")]
+        [HttpGet]
+        public ICollection<Address> GetAddresses()
+        {
+            return _jacketRepository.GetAddresses();
+        }
+
+        [Route("warehouses")]
+        [HttpGet]
+        public ICollection<Warehouse> GetWarehouses()
+        {
+            Console.WriteLine("Received Request..");
+            return _jacketRepository.GetWarehouses();
         }
 
     }

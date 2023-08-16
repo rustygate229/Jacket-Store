@@ -1,5 +1,6 @@
 ﻿using Jacket_Store.Models;
 using System.Data.Entity;
+using System.Runtime.CompilerServices;
 
 namespace Jacket_Store.DAL
 {
@@ -33,7 +34,15 @@ namespace Jacket_Store.DAL
 
         public ICollection<Order> GetOrders()
         {
-            throw new NotImplementedException();
+            // Uses LINQ query
+            using (var context = _context)
+            {
+                var query = (from ord in context.Orders
+                             orderby ord.OrderId
+                             select ord).ToList();
+
+                return query;
+            }
         }
 
         public Order GetOrderById(int orderId)
@@ -48,7 +57,15 @@ namespace Jacket_Store.DAL
 
         public ICollection<Product> GetProducts()
         {
-            throw new NotImplementedException();
+            // Uses LINQ query
+            using (var context = _context)
+            {
+                var query = (from pro in context.Products
+                             orderby pro.ProductID
+                             select pro).ToList();
+
+                return query;
+            }
         }
 
         public Product GetProductById(int productId)
@@ -68,7 +85,15 @@ namespace Jacket_Store.DAL
 
         public ICollection<Address> GetAddresses()
         {
-            throw new NotImplementedException();
+            // Uses LINQ query
+            using (var context = _context)
+            {
+                var query = (from addr in context.Addresses
+                             orderby addr.AddressId
+                             select addr).ToList();
+
+                return query;
+            }
         }
 
         public Address GetAddressByCustomerId(int customerId)
@@ -93,7 +118,16 @@ namespace Jacket_Store.DAL
 
         public ICollection<Warehouse> GetWarehouses()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("Getting Warehouses...");
+            // Uses LINQ query
+            using (var context = _context)
+            {
+                var query = (from ware in context.Warehouses
+                             orderby ware.WarehouseId
+                             select ware).ToList();
+
+                return query;
+            }
         }
 
         public Warehouse GetWarehouseById(int warehouseId)
@@ -113,7 +147,12 @@ namespace Jacket_Store.DAL
 
         public void InsertOrder(Order order)
         {
-            throw new NotImplementedException();
+            using (var context = _context)
+            {
+                //Create a new customer and save it
+                context.Orders.Add(order);
+                context.SaveChanges();
+            }
         }
 
         public void InsertProduct(Product product)
