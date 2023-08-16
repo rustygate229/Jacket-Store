@@ -1,6 +1,7 @@
 ﻿using Jacket_Store.Models;
 using System.Data.Entity;
 using System.Runtime.CompilerServices;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace Jacket_Store.DAL
 {
@@ -17,32 +18,29 @@ namespace Jacket_Store.DAL
         public ICollection<Customer> GetCustomers()
         {
             // Uses LINQ query
-            using (var context = _context)
-            {
-                var query = (from cus in context.Customers
-                 orderby cus.CustomerID
-                 select cus).ToList();
+            var query = (from cus in _context.Customers
+                orderby cus.CustomerID
+                select cus).ToList();
 
-                return query;
-            }
+            return query;
         }
 
-        public Customer GetCustomerById(int customerId)
+        public IQueryable<Customer> GetCustomerById(int customerId)
         {
-            throw new NotImplementedException();
+            var query = (from cus in _context.Customers
+                         where cus.CustomerID == customerId
+                         select cus);
+            return query;
         }
 
         public ICollection<Order> GetOrders()
         {
             // Uses LINQ query
-            using (var context = _context)
-            {
-                var query = (from ord in context.Orders
-                             orderby ord.OrderId
-                             select ord).ToList();
+            var query = (from ord in _context.Orders
+                            orderby ord.OrderId
+                            select ord).ToList();
 
-                return query;
-            }
+            return query;
         }
 
         public Order GetOrderById(int orderId)
@@ -58,14 +56,11 @@ namespace Jacket_Store.DAL
         public ICollection<Product> GetProducts()
         {
             // Uses LINQ query
-            using (var context = _context)
-            {
-                var query = (from pro in context.Products
-                             orderby pro.ProductID
-                             select pro).ToList();
+            var query = (from pro in _context.Products
+                            orderby pro.ProductID
+                            select pro).ToList();
 
-                return query;
-            }
+            return query;
         }
 
         public Product GetProductById(int productId)
@@ -86,14 +81,11 @@ namespace Jacket_Store.DAL
         public ICollection<Address> GetAddresses()
         {
             // Uses LINQ query
-            using (var context = _context)
-            {
-                var query = (from addr in context.Addresses
-                             orderby addr.AddressId
-                             select addr).ToList();
+            var query = (from addr in _context.Addresses
+                            orderby addr.AddressId
+                            select addr).ToList();
 
-                return query;
-            }
+            return query;
         }
 
         public Address GetAddressByCustomerId(int customerId)
@@ -118,16 +110,12 @@ namespace Jacket_Store.DAL
 
         public ICollection<Warehouse> GetWarehouses()
         {
-            Console.WriteLine("Getting Warehouses...");
             // Uses LINQ query
-            using (var context = _context)
-            {
-                var query = (from ware in context.Warehouses
-                             orderby ware.WarehouseId
-                             select ware).ToList();
+            var query = (from ware in _context.Warehouses
+                            orderby ware.WarehouseId
+                            select ware).ToList();
 
-                return query;
-            }
+            return query;
         }
 
         public Warehouse GetWarehouseById(int warehouseId)
@@ -135,24 +123,18 @@ namespace Jacket_Store.DAL
             throw new NotImplementedException();
         }
 
-        public void InsertCustomer(Customer customer)
+        public async Task InsertCustomer(Customer customer)
         {
-            using (var context = _context)
-            {
-                //Create a new customer and save it
-                context.Customers.Add(customer);
-                context.SaveChanges();
-            }
+            //Create a new customer and save it
+            _context.Customers.Add(customer);
+            await _context.SaveChangesAsync();
         }
 
-        public void InsertOrder(Order order)
+        public async Task InsertOrder(Order order)
         {
-            using (var context = _context)
-            {
-                //Create a new customer and save it
-                context.Orders.Add(order);
-                context.SaveChanges();
-            }
+            //Create a new order and save it
+            _context.Orders.Add(order);
+            await _context.SaveChangesAsync();
         }
 
         public void InsertProduct(Product product)

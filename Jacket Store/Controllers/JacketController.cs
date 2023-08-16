@@ -29,9 +29,16 @@ namespace Jacket_Store.Controllers
             return _jacketRepository.GetCustomers();
         }
 
+        [Route("customers/{id}")]
+        [HttpGet]
+        public IQueryable<Customer> GetCustomerById(int id)
+        {
+            return _jacketRepository.GetCustomerById(id);
+        }
+
         [Route("customers")]
         [HttpPost]
-        public IActionResult PostCus(Customer newCustomer)
+        public async Task<IActionResult> PostCus(Customer newCustomer)
         {
             try
             {
@@ -40,7 +47,7 @@ namespace Jacket_Store.Controllers
                     return StatusCode(400);
                 }
 
-                _jacketRepository.InsertCustomer(newCustomer);
+                await _jacketRepository.InsertCustomer(newCustomer);
                 return StatusCode(200);
 
             } catch (Exception)

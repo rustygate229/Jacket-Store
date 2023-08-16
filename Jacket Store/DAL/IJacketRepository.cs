@@ -12,7 +12,7 @@ namespace Jacket_Store.DAL
 
         //Customer Table
         ICollection<Customer> GetCustomers();
-        Customer GetCustomerById(int customerId);
+        IQueryable<Customer> GetCustomerById(int customerId);
 
         //Order Table
         ICollection<Order> GetOrders();
@@ -38,8 +38,8 @@ namespace Jacket_Store.DAL
 
 
         //Create Methods ----------------------------
-        void InsertCustomer(Customer customer);
-        void InsertOrder(Order order);
+        Task InsertCustomer(Customer customer);
+        Task InsertOrder(Order order);
         void InsertProduct(Product product);
         void InsertProductToWarehouse(int warehouseID, Product product);
         void InsertAddress(Address address);
