@@ -1,5 +1,6 @@
 ﻿using Jacket_Store.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
 
 namespace Jacket_Store.DAL
 {
@@ -15,5 +16,14 @@ namespace Jacket_Store.DAL
         public DbSet<Product> Products { get; set; }
         public DbSet<Warehouse> Warehouses { get; set; }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Product>()
+                .HasMany(e => e.Warehouses)
+                .WithMany(e => e.Products)
+                .UsingEntity<WarehouseProduct>();
+        }
+
     }
+
 }

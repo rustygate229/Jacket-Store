@@ -29,11 +29,11 @@ namespace Jacket_Store.Controllers
             return _jacketRepository.GetCustomers();
         }
 
-        [Route("customers/{id}")]
+        [Route("customers/{cus_id}")]
         [HttpGet]
-        public IQueryable<Customer> GetCustomerById(int id)
+        public IQueryable<Customer> GetCustomerById(int cus_id)
         {
-            return _jacketRepository.GetCustomerById(id);
+            return _jacketRepository.GetCustomerById(cus_id);
         }
 
         [Route("customers")]
@@ -63,11 +63,25 @@ namespace Jacket_Store.Controllers
             return _jacketRepository.GetOrders();
         }
 
+        [Route("orders/{order_id}")]
+        [HttpGet]
+        public IQueryable<Order> GetOrderById(int order_id)
+        {
+            return _jacketRepository.GetOrderById(order_id);
+        }
+
         [Route("products")]
         [HttpGet]
         public ICollection<Product> GetProducts()
         {
             return _jacketRepository.GetProducts();
+        }
+
+        [Route("products/{prod_id}")]
+        [HttpGet]
+        public IQueryable<Product> GetProductById(int prod_id)
+        {
+            return _jacketRepository.GetProductById(prod_id);
         }
 
         [Route("addresses")]

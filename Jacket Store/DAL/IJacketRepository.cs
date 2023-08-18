@@ -16,13 +16,13 @@ namespace Jacket_Store.DAL
 
         //Order Table
         ICollection<Order> GetOrders();
-        Order GetOrderById(int orderId);
+        IQueryable<Order> GetOrderById(int orderId);
         ICollection<Order> GetOrdersByCustomerId(int customerId);
 
         //Product Table
         ICollection<Product> GetProducts();
-        Product GetProductById(int productId);
-        Product GetProuctByWarehouse(int warehouseId);
+        IQueryable<Product> GetProductById(int productId);
+        IQueryable<Product> GetProuctByWarehouse(int warehouseId);
         ICollection<Product> GetAllProductsAtWarehouse(Warehouse warehouseId);
 
         //Address Table 

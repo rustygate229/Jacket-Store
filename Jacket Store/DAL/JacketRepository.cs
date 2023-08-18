@@ -43,9 +43,12 @@ namespace Jacket_Store.DAL
             return query;
         }
 
-        public Order GetOrderById(int orderId)
+        public IQueryable<Order> GetOrderById(int orderId)
         {
-            throw new NotImplementedException();
+            var query = from ord in _context.Orders
+                        where ord.OrderId == orderId
+                        select ord;
+            return query;
         }
 
         public ICollection<Order> GetOrdersByCustomerId(int customerId)
@@ -63,12 +66,22 @@ namespace Jacket_Store.DAL
             return query;
         }
 
-        public Product GetProductById(int productId)
+        public IQueryable<Product> GetProductById(int productId)
         {
-            throw new NotImplementedException();
+            var query = from pro in _context.Products
+                        where pro.ProductID == productId
+                        select pro;
+
+            foreach(Product product in query.ToList())
+            {
+                var temp_query = (_context.Products.Where(p => p.ProductID == productId).SelectMany(p => _context.Warehouses));
+                product.Warehouses = temp_query.ToList();
+            }
+
+            return query;
         }
 
-        public Product GetProuctByWarehouse(int warehouseId)
+        public IQueryable<Product> GetProuctByWarehouse(int warehouseId)
         {
             throw new NotImplementedException();
         }
