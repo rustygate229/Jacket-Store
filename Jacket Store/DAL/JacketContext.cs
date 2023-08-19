@@ -15,14 +15,7 @@ namespace Jacket_Store.DAL
         public DbSet<Order> Orders { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Warehouse> Warehouses { get; set; }
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Product>()
-                .HasMany(e => e.Warehouses)
-                .WithMany(e => e.Products)
-                .UsingEntity<WarehouseProduct>();
-        }
+        public DbSet<WarehouseProduct> WarehouseProducts { get; set; }
 
     }
 

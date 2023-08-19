@@ -3,12 +3,12 @@
     public class Product
     {
         public int ProductID { get; set; }
-        public string Name { get; set; }
-        public string Make { get; set; }
-        public string Origin { get; set; }
+        public required string Name { get; set; }
+        public required string Make { get; set; }
+        public required string Origin { get; set; }
         public int Quantity { get; set; }
         public decimal Price { get; set; }
-        public ICollection<Warehouse> Warehouses { get; set; }
+        public ICollection<WarehouseProduct> WarehouseProducts { get; set; }
 
     }
 }

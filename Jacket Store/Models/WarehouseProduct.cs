@@ -1,10 +1,12 @@
-﻿namespace Jacket_Store.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Jacket_Store.Models
 {
     public class WarehouseProduct
     {
-        public int InventoryId { get; set; }
+        [Key] public int InventoryId { get; set; }
         public int ProductId { get; set; }
         public int WarehouseId { get; set; }
-        public int quantity { get; set; }
+        public int Quantity { get; set; }
     }
 }

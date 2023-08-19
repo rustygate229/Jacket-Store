@@ -1,5 +1,6 @@
 ﻿using Jacket_Store.Models;
 using System.Data.Entity;
+using System.Data.Entity.Core.Mapping;
 using System.Runtime.CompilerServices;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
@@ -74,8 +75,10 @@ namespace Jacket_Store.DAL
 
             foreach(Product product in query.ToList())
             {
-                var temp_query = (_context.Products.Where(p => p.ProductID == productId).SelectMany(p => _context.Warehouses));
-                product.Warehouses = temp_query.ToList();
+                var temp_query = from wp in _context.WarehouseProducts
+                                 where wp.ProductId == productId
+                                 select wp;
+                product.WarehouseProducts = temp_query.ToList();
             }
 
             return query;
