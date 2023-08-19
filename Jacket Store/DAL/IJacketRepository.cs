@@ -17,24 +17,21 @@ namespace Jacket_Store.DAL
         //Order Table
         ICollection<Order> GetOrders();
         IQueryable<Order> GetOrderById(int orderId);
-        ICollection<Order> GetOrdersByCustomerId(int customerId);
 
         //Product Table
         ICollection<Product> GetProducts();
         IQueryable<Product> GetProductById(int productId);
-        IQueryable<Product> GetProuctByWarehouse(int warehouseId);
-        ICollection<Product> GetAllProductsAtWarehouse(Warehouse warehouseId);
+        ICollection<WarehouseProduct> GetAllProductsAtWarehouse(int warehouseId);
 
         //Address Table 
         ICollection<Address> GetAddresses();
-        Address GetAddressByCustomerId(int customerId);
-        Address GetAddressById(int addressId);
-        Address GetAddressByWarehouseID(int warehouseId);
+        IQueryable<Address> GetAddressById(int addressId);
         ICollection<Address> GetAddressesByStreet(String street);
+        IQueryable<Address> GetWarehouseAddress(int warehouseId);
 
         //Warehouse Table
         ICollection<Warehouse> GetWarehouses();
-        Warehouse GetWarehouseById(int warehouseId);
+        IQueryable<Warehouse> GetWarehouseById(int warehouseId);
 
 
         //Create Methods ----------------------------

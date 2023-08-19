@@ -1,4 +1,5 @@
 ﻿using Jacket_Store.Models;
+using Microsoft.AspNetCore.OutputCaching;
 using System.Data.Entity;
 using System.Data.Entity.Core.Mapping;
 using System.Runtime.CompilerServices;
@@ -52,11 +53,6 @@ namespace Jacket_Store.DAL
             return query;
         }
 
-        public ICollection<Order> GetOrdersByCustomerId(int customerId)
-        {
-            throw new NotImplementedException();
-        }
-
         public ICollection<Product> GetProducts()
         {
             // Uses LINQ query
@@ -84,14 +80,14 @@ namespace Jacket_Store.DAL
             return query;
         }
 
-        public IQueryable<Product> GetProuctByWarehouse(int warehouseId)
+        public ICollection<WarehouseProduct> GetAllProductsAtWarehouse(int warehouseId)
         {
-            throw new NotImplementedException();
-        }
+            var query = (from wp in _context.WarehouseProducts
+                        where wp.WarehouseId == warehouseId
+                        orderby wp.InventoryId
+                        select wp).ToList();
 
-        public ICollection<Product> GetAllProductsAtWarehouse(Warehouse warehouseId)
-        {
-            throw new NotImplementedException();
+            return query;
         }
 
         public ICollection<Address> GetAddresses()
@@ -104,24 +100,35 @@ namespace Jacket_Store.DAL
             return query;
         }
 
-        public Address GetAddressByCustomerId(int customerId)
+        public IQueryable<Address> GetAddressById(int addressId)
         {
-            throw new NotImplementedException();
-        }
-
-        public Address GetAddressById(int addressId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Address GetAddressByWarehouseID(int warehouseId)
-        {
-            throw new NotImplementedException();
+            var query = from addr in _context.Addresses
+                        where addr.AddressId == addressId
+                        select addr;
+            return query;
         }
 
         public ICollection<Address> GetAddressesByStreet(string street)
         {
-            throw new NotImplementedException();
+            var query = (from addr in _context.Addresses
+                        where addr.StreetName.Equals(street)
+                        select addr).ToList();
+
+            return query;
+        }
+
+        public IQueryable<Address> GetWarehouseAddress(int warehouseId)
+        {
+
+            var ware_query = _context.Warehouses.Where(w => w.WarehouseId == warehouseId).ToList();
+
+            int addressId = ware_query.ElementAt(0).AddressId;
+
+            var add_query = from addr in _context.Addresses
+                            where addr.AddressId == addressId
+                            select addr;
+
+            return add_query;
         }
 
         public ICollection<Warehouse> GetWarehouses()
@@ -134,9 +141,12 @@ namespace Jacket_Store.DAL
             return query;
         }
 
-        public Warehouse GetWarehouseById(int warehouseId)
+        public IQueryable<Warehouse> GetWarehouseById(int warehouseId)
         {
-            throw new NotImplementedException();
+            var query = from ware in _context.Warehouses
+                        where ware.WarehouseId == warehouseId
+                        select ware;
+            return query;
         }
 
         public async Task InsertCustomer(Customer customer)

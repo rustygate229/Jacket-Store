@@ -84,6 +84,13 @@ namespace Jacket_Store.Controllers
             return _jacketRepository.GetProductById(prod_id);
         }
 
+        [Route("products/{prod_id}/{ware_id}")]
+        [HttpGet]
+        public IQueryable<WarehouseProduct> GetProductInWarehouse(int prod_id, int ware_id)
+        {
+            return _jacketRepository.GetProuctByWarehouse(prod_id, ware_id);
+        }
+
         [Route("addresses")]
         [HttpGet]
         public ICollection<Address> GetAddresses()
@@ -91,12 +98,46 @@ namespace Jacket_Store.Controllers
             return _jacketRepository.GetAddresses();
         }
 
+        [Route("addresses/{address_id}")]
+        [HttpGet]
+        public IQueryable<Address> GetAddressesById(int address_id)
+        {
+            return _jacketRepository.GetAddressById(address_id);
+        }
+
+        [Route("addresses/street/{street}")]
+        [HttpGet]
+        public ICollection<Address> GetAddressesByStreet(string street)
+        {
+            return _jacketRepository.GetAddressesByStreet(street);
+        }
+
         [Route("warehouses")]
         [HttpGet]
         public ICollection<Warehouse> GetWarehouses()
         {
-            Console.WriteLine("Received Request..");
             return _jacketRepository.GetWarehouses();
+        }
+
+        [Route("warehouses/{ware_id}")]
+        [HttpGet]
+        public IQueryable<Warehouse> GetWarehouseById(int ware_id)
+        {
+            return _jacketRepository.GetWarehouseById(ware_id);
+        }
+
+        [Route("warehouses/{ware_id}/products")]
+        [HttpGet]
+        public ICollection<WarehouseProduct> GetWarehouseProducts(int ware_id)
+        {
+            return _jacketRepository.GetAllProductsAtWarehouse(ware_id);
+        }
+
+        [Route("warehouses/{ware_id}/address")]
+        [HttpGet]
+        public IQueryable<Address> GetWarehouseAddress(int ware_id)
+        {
+            return _jacketRepository.GetWarehouseAddress(ware_id);
         }
 
     }
