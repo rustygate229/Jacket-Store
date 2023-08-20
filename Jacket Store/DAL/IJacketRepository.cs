@@ -37,10 +37,10 @@ namespace Jacket_Store.DAL
         //Create Methods ----------------------------
         Task InsertCustomer(Customer customer);
         Task InsertOrder(Order order);
-        void InsertProduct(Product product);
-        void InsertProductToWarehouse(int warehouseID, Product product);
-        void InsertAddress(Address address);
-        void InsertWarehouse(Warehouse warehouse);
+        Task InsertProduct(Product product);
+        Task InsertProductToWarehouse(int warehouseID, Product product);
+        Task InsertAddress(Address address);
+        Task InsertWarehouse(Warehouse warehouse);
 
 
         //Update Methods -----------------------------

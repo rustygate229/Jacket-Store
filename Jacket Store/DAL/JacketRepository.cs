@@ -163,24 +163,27 @@ namespace Jacket_Store.DAL
             await _context.SaveChangesAsync();
         }
 
-        public void InsertProduct(Product product)
+        public async Task InsertProduct(Product product)
+        {
+            _context.Products.Add(product);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task InsertProductToWarehouse(int warehouseID, Product product)
         {
             throw new NotImplementedException();
         }
 
-        public void InsertProductToWarehouse(int warehouseID, Product product)
+        public async Task InsertAddress(Address address)
         {
-            throw new NotImplementedException();
+            _context.Addresses.Add(address);
+            await _context.SaveChangesAsync();
         }
 
-        public void InsertAddress(Address address)
+        public async Task InsertWarehouse(Warehouse warehouse)
         {
-            throw new NotImplementedException();
-        }
-
-        public void InsertWarehouse(Warehouse warehouse)
-        {
-            throw new NotImplementedException();
+            _context.Warehouses.Add(warehouse);
+            await _context.SaveChangesAsync();
         }
 
         public void DeleteOrdersByCustomer(int customerId)
