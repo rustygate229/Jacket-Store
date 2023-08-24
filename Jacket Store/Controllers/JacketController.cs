@@ -63,6 +63,27 @@ namespace Jacket_Store.Controllers
             return _jacketRepository.GetOrders();
         }
 
+        [Route("orders")]
+        [HttpPost]
+        public async Task<IActionResult> PostOrd(Order newOrder)
+        {
+            try
+            {
+                if (newOrder == null)
+                {
+                    return StatusCode(400);
+                }
+
+                await _jacketRepository.InsertOrder(newOrder);
+                return StatusCode(200);
+
+            }
+            catch (Exception)
+            {
+                return StatusCode(500);
+            }
+        }
+
         [Route("orders/{order_id}")]
         [HttpGet]
         public IQueryable<Order> GetOrderById(int order_id)
@@ -77,6 +98,27 @@ namespace Jacket_Store.Controllers
             return _jacketRepository.GetProducts();
         }
 
+        [Route("products")]
+        [HttpPost]
+        public async Task<IActionResult> PostProd(Product newProduct)
+        {
+            try
+            {
+                if (newProduct == null)
+                {
+                    return StatusCode(400);
+                }
+
+                await _jacketRepository.InsertProduct(newProduct);
+                return StatusCode(200);
+
+            }
+            catch (Exception)
+            {
+                return StatusCode(500);
+            }
+        }
+
         [Route("products/{prod_id}")]
         [HttpGet]
         public IQueryable<Product> GetProductById(int prod_id)
@@ -84,18 +126,32 @@ namespace Jacket_Store.Controllers
             return _jacketRepository.GetProductById(prod_id);
         }
 
-        [Route("products/{prod_id}/{ware_id}")]
-        [HttpGet]
-        public IQueryable<WarehouseProduct> GetProductInWarehouse(int prod_id, int ware_id)
-        {
-            return _jacketRepository.GetProuctByWarehouse(prod_id, ware_id);
-        }
-
         [Route("addresses")]
         [HttpGet]
         public ICollection<Address> GetAddresses()
         {
             return _jacketRepository.GetAddresses();
+        }
+
+        [Route("addresses")]
+        [HttpPost]
+        public async Task<IActionResult> PostAdd(Address newAddress)
+        {
+            try
+            {
+                if (newAddress == null)
+                {
+                    return StatusCode(400);
+                }
+
+                await _jacketRepository.InsertAddress(newAddress);
+                return StatusCode(200);
+
+            }
+            catch (Exception)
+            {
+                return StatusCode(500);
+            }
         }
 
         [Route("addresses/{address_id}")]
@@ -117,6 +173,27 @@ namespace Jacket_Store.Controllers
         public ICollection<Warehouse> GetWarehouses()
         {
             return _jacketRepository.GetWarehouses();
+        }
+
+        [Route("warehouses")]
+        [HttpPost]
+        public async Task<IActionResult> PostWarehouse(Warehouse newWare)
+        {
+            try
+            {
+                if (newWare == null)
+                {
+                    return StatusCode(400);
+                }
+
+                await _jacketRepository.InsertWarehouse(newWare);
+                return StatusCode(200);
+
+            }
+            catch (Exception)
+            {
+                return StatusCode(500);
+            }
         }
 
         [Route("warehouses/{ware_id}")]
